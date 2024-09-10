@@ -17,6 +17,13 @@ Rapid application development
 
 * [Pygubu](https://github.com/alejandroautalan/pygubu-designer)
 
+
+A supercharged theme extension
+-----------------------------------
+
+* [ttkbootstrap](https://ttkbootstrap.readthedocs.io)
+
+
 Co je třeba k psaní programů v TkInter
 ==========================================
 
