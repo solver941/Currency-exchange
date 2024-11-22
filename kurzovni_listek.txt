@@ -1,0 +1,33 @@
+21 Nov 2024 #227
+Country|Currency|Amount|Code|Rate
+Australia|dollar|1|AUD|15.691
+Brazil|real|1|BRL|4.136
+Bulgaria|lev|1|BGN|12.951
+Canada|dollar|1|CAD|17.226
+China|renminbi|1|CNY|3.323
+Denmark|krone|1|DKK|3.396
+EMU|euro|1|EUR|25.330
+Hongkong|dollar|1|HKD|3.091
+Hungary|forint|100|HUF|6.174
+Iceland|krona|100|ISK|17.361
+IMF|SDR|1|XDR|31.589
+India|rupee|100|INR|28.480
+Indonesia|rupiah|1000|IDR|1.511
+Israel|new shekel|1|ILS|6.445
+Japan|yen|100|JPY|15.579
+Malaysia|ringgit|1|MYR|5.388
+Mexico|peso|1|MXN|1.182
+New Zealand|dollar|1|NZD|14.128
+Norway|krone|1|NOK|2.180
+Philippines|peso|100|PHP|40.766
+Poland|zloty|1|PLN|5.835
+Romania|leu|1|RON|5.089
+Singapore|dollar|1|SGD|17.904
+South Africa|rand|1|ZAR|1.332
+South Korea|won|100|KRW|1.721
+Sweden|krona|1|SEK|2.183
+Switzerland|franc|1|CHF|27.245
+Thailand|baht|100|THB|69.441
+Turkey|lira|100|TRY|69.767
+United Kingdom|pound|1|GBP|30.413
+USA|dollar|1|USD|24.057
