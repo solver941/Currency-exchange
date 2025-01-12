@@ -1,10 +1,9 @@
-#!/uscer/bin/env python3
+#!/usr/bin/env python3
 
-from os.path import basename, splitext, exists
+from os.path import exists
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
-import datetime
 import requests
 
 
@@ -28,7 +27,7 @@ class MyEntry(tk.Entry):
 
 
 class Application(tk.Tk):
-    name = "Foo"
+    name = "Směnárna"
     filename = "kurzovni_listek.txt"
 
     def __init__(self):
@@ -41,7 +40,7 @@ class Application(tk.Tk):
         self.varAuto = tk.BooleanVar()
         self.chbtnAuto = tk.Checkbutton(
             self,
-            text="Automacitky stahovat kurzovní lístek",
+            text="Automaticky stahovat kurzovní lístek",
             variable=self.varAuto,
             command=self.chbtnAutoClick,
         )
@@ -77,10 +76,15 @@ class Application(tk.Tk):
 
         self.lblCourse = tk.LabelFrame(self, text="Kurz")
         self.lblCourse.pack(anchor="w", padx=5, pady=5)
-        self.entryAmount = MyEntry(self.lblCourse, state="readonly")
+        self.entryAmount = MyEntry(self.lblCourse)
         self.entryAmount.pack()
+        self.entryAmount.variable.trace_add("write", self.update_total)
+
         self.entryRate = MyEntry(self.lblCourse, state="readonly")
         self.entryRate.pack()
+
+        self.lblTotal = tk.Label(self, text="Celková hodnota: 0.00")
+        self.lblTotal.pack(anchor="w", padx=5, pady=5)
 
         self.btn = tk.Button(self, text="Quit", command=self.quit)
         self.btn.pack()
@@ -101,8 +105,6 @@ class Application(tk.Tk):
             self.after_cancel(self.autoID)
 
     def download(self):
-        # stahuju aktuální kurzovní lístek z https://www.cnb.cz/en/financial_markets/foreign_exchange_market/exchange_rate_fixing/daily.txt
-        # a uložím jej do souboru currency_exchange_rate.txt
         URL = "https://www.cnb.cz/en/financial_markets/foreign_exchange_market/exchange_rate_fixing/daily.txt"
         try:
             response = requests.get(URL)
@@ -116,7 +118,7 @@ class Application(tk.Tk):
 
     def read_ticket(self):
         if not exists(self.filename):
-            messagebox.showerror("Chyba:", "Kurzovní lístek nennalezen!")
+            messagebox.showerror("Chyba:", "Kurzovní lístek nenalezen!")
             return
         with open(self.filename, "r") as f:
             data = f.read()
@@ -148,8 +150,17 @@ class Application(tk.Tk):
             self.rate = float(self.ticket[country]["rate"]) * 0.96
         else:
             self.rate = float(self.ticket[country]["rate"]) * 1.04
-        self.entryAmount.value = str(self.amount)
+        self.entryAmount.value = "1"  # Default to 1 unit initially
         self.entryRate.value = str(self.rate)
+        self.update_total()
+
+    def update_total(self, *args):
+        try:
+            units = float(self.entryAmount.value)
+            total = units * self.rate
+            self.lblTotal.config(text=f"Celková hodnota: {total:.2f}")
+        except ValueError:
+            self.lblTotal.config(text="Celková hodnota: 0.00")
 
     def quit(self, event=None):
         super().destroy()
